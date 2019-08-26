@@ -1,0 +1,24 @@
+{
+  "name": "monster-safari",
+  "version": "1.0.0",
+  "description": "Final 301 Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mapm-301final/Monster-Safari.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mapm-301final/Monster-Safari/issues"
+  },
+  "homepage": "https://github.com/Mapm-301final/Monster-Safari#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^7.12.1",
+    "superagent": "^5.1.0"
+  }
+}
