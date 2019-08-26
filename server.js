@@ -30,3 +30,15 @@ const PORT = process.env.PORT || 3000;
 //tells our server to start listening on the port
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 
+//method-override
+const methodOverride = require('method-overrride');
+
+
+app.get('/', (request, response)=>{
+  response.render('./views/index.ejs');
+});
+
+//error handle
+app.get('*', (request, response)=>{
+  response.render('./views/pages/error');
+});
