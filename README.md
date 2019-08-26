@@ -1,5 +1,7 @@
 # Monster-Safari
 Final 301 Project. Name tentative. Find Pokemon around the world based on Location &amp; Weather
+##WIKI
+https://github.com/Mapm-301final/Monster-Safari/wiki
 
 ## Readme Requirements
 ###The name of the project
