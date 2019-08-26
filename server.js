@@ -9,7 +9,7 @@ const cors = require('cors');
 app.use(cors());
 
 //superagent
-const superagent = require('superagent');
+// const superagent = require('superagent');
 require('dotenv').config();
 
 //=================Postgres Database===============
@@ -31,14 +31,14 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 
 //method-override
-const methodOverride = require('method-overrride');
+// const methodOverride = require('method-overrride');
 
 
 app.get('/', (request, response)=>{
-  response.render('./views/index.ejs');
+  response.render('pages/index');
 });
 
 //error handle
 app.get('*', (request, response)=>{
-  response.render('./views/pages/error');
+  response.render('pages/error');
 });
