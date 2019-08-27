@@ -33,7 +33,7 @@ app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 //method-override
 // const methodOverride = require('method-overrride');
 
-
+//initial index page
 app.get('/', (request, response)=>{
   response.render('pages/index');
 });
