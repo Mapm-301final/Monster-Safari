@@ -9,7 +9,7 @@ const cors = require('cors');
 app.use(cors());
 
 //superagent
-// const superagent = require('superagent');
+const superagent = require('superagent');
 require('dotenv').config();
 
 //=================Postgres Database===============
@@ -47,3 +47,26 @@ app.get('*', (request, response)=>{
 
 
 // WEATHER API CALLS
+
+app.get('/weather', (request, response) => {
+  response.send(searchWeather(request));
+});
+
+function searchWeather(request){
+  const lat = request.lat;
+  const long = request.long;
+  const url = `https://api.weather.gov/points/${lat},${long}`;
+  return superagent.get(url)
+    .then(res => {
+      const url = res.body.properties.forecastGridData;
+      return superagent.get(url);
+    }).then(res => {
+      return new Weather(res.body.properties);
+    });
+}
+
+function Weather(data){
+  this.elevation = data.elevation.value;
+  this.temperature = data.temperature.values[0].value;
+  this.weather = data.weather.values[1].value[0].weather;
+}
