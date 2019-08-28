@@ -43,7 +43,6 @@ app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 
 //initial index page
 app.get('/', (request, response)=>{
-  getLocation();
   response.render('pages/index');
 });
 
@@ -53,19 +52,6 @@ app.get('/', (request, response)=>{
 
 //===============================================================================================//
 //**************************************     Functions     ************************************//
-// locatiton= Geolocation.getCurrentPosition()
-// function getLocation() {
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(showPosition);
-//   } else {
-//     console.log('Geolocation is not supported by this browser.');
-//   }
-// }
-
-// let showPosition=(position)=>{
-//   console.log('Latitude: '+ position.coords.latitude + 
-//   '  Longitude: ' + position.coords.longitude);
-// };
 
 
 // getWeather(request, response)
