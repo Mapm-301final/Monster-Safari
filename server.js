@@ -42,3 +42,8 @@ app.get('/', (request, response)=>{
 app.get('*', (request, response)=>{
   response.render('pages/error');
 });
+
+// POKEMON API CALLS
+
+
+// WEATHER API CALLS
