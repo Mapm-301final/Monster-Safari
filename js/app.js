@@ -18,8 +18,11 @@ function getLocation() {
   }
 }
 
+
 let showPosition=(position)=>{
   console.log('Latitude: '+ position.coords.latitude + 
   '  Longitude: ' + position.coords.longitude);
+
 };
+
 
