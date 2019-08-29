@@ -1,13 +1,12 @@
 'use strict';
 
-
+//gets user permission to use location and then calls the showPosition 
 window.onload = function() {
   navigator.geolocation.getCurrentPosition(showPosition);
 };
 
-$('findMonster').on('click', function(){
-  getLocation()
-});
+$('#findMonster').click(getLocation);
+
 
 function getLocation() {
   if (navigator.geolocation) {
