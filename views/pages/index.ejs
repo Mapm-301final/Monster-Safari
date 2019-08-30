@@ -9,10 +9,14 @@
     </header>
     <main id="main">
         <h1>Monster Safari!</h1>
-        <button id="findMonster">Find monster at my location!</button>
+        <Form action="/currentLocation" method="POST" name='cl'>
+            <button type="submit" >Find monster at my location!</button>
+        </Form>
         
-        <form class="textInput" action="/location" method="GET">
-            <input id="input" type="text" placeholder="City" value="">
+        
+        <form class="textInput" action="/getLocation" method="POST">
+            <label for="search">Enter a City to Search For a Monster</label>
+            <input id="input" type="text" placeholder="City" name="search">
             <button type="submit">Search for Monsters!</button>
         </form>
 

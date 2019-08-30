@@ -50,9 +50,11 @@ app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 app.get('/', (request, response)=>{
   response.render('pages/index');
 });
-
+//Gets current location
+app.post('/currentLocation' , curLoc);
 //calls Geocode
-app.get('/location',searchLatLong);
+app.post('/getLocation',searchLatLong);
+
 //get s weather based on results returned by google
 // app.get('/weather', (request, response));
 
@@ -61,21 +63,27 @@ app.get('/location',searchLatLong);
 //===============================================================================================//
 //**************************************     Functions     ************************************//
 
-
+function curLoc(request,response){
+  console.log( request.body.cl , 'curloc request');
+}
 
 
 //Gets location based on search query
-function searchLatLong(query){
-  console.log(query,'somthing abnoxious');
+function searchLatLong(request,response){
+  let query = request.body.search;
   const url =`https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=${process.env.GEOCODE_API_KEY}`;
-  //using our superagent library to get the proper data format
+  // //using our superagent library to get the proper data format
   return superagent.get(url)
-
-  //then when we got the data from superagent create a new City object with the query (location name) and data (res.body.results[0]);
-    .then(res => {
-      // console.log(res);
-      // return res.body.results[0].data.geometry.location.lat,res.body.results[0].data.geometry.location.long ;
+    .then(res =>{
+      console.log('Results of search to lat long', res.body.results[0].geometry.location);//Needs to be the call to the weather API
     });
+
+  // //then when we got the data from superagent create a new City object with the query (location name) and data (res.body.results[0]);
+  // .then(res => {
+  // res.render('/');
+  //     // console.log(res);
+  //     // return res.body.results[0].data.geometry.location.lat,res.body.results[0].data.geometry.location.long ;
+  //   });
 
 }
 
