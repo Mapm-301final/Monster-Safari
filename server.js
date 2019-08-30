@@ -12,6 +12,9 @@ app.use(cors());
 const superagent = require('superagent');
 require('dotenv').config();
 
+
+const pg = require('pg');
+
 //=================Postgres Database===============
 // const pg = require('pg');
 // const client = new pg.Client(process.env.DATABASE_URL);
@@ -39,31 +42,30 @@ app.get('/', (request, response)=>{
 });
 
 //error handle
-app.get('*', (request, response)=>{
-  response.render('pages/error');
-});
+// app.get('*', (request, response)=>{
+//   response.render('pages/error');
+// });
 
 // POKEMON API CALLS
 
 
 // WEATHER API CALLS
 
-app.get('/weather', (request, response) => {
-  response.send(searchWeather(request));
-});
 
-function searchWeather(request){
-  const lat = request.lat;
-  const long = request.long;
+app.get('/weather', (request, response) => {
+  const lat = 47.618333199999995;
+  const long = -122.3513311;
   const url = `https://api.weather.gov/points/${lat},${long}`;
-  return superagent.get(url)
+  console.log(url);
+  return superagent.get(url).set({'User-Agent': 'ua'})
     .then(res => {
+      console.log(res);
       const url = res.body.properties.forecastGridData;
       return superagent.get(url);
     }).then(res => {
-      return new Weather(res.body.properties);
-    });
-}
+      response.send(new Weather(res.body.properties));
+    }).catch(console.error);
+});
 
 function Weather(data){
   this.elevation = data.elevation.value;
