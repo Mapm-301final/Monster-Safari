@@ -7,14 +7,21 @@
     <header>
         
     </header>
-    <main>
-        <h1>HELLO WORLD!</h1>
+    <main id="main">
+        <h1>Monster Safari!</h1>
         <button id="findMonster">Find monster at my location!</button>
+        
+        <form class="textInput" action="/location" method="GET">
+            <input id="input" type="text" placeholder="City" value="">
+            <button type="submit">Search for Monsters!</button>
+        </form>
+
     </main>
     <footer>
     
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../../js/location.js"></script>
     <script src="../../js/app.js"></script>
 </body>
 </html>
