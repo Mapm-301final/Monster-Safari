@@ -1,0 +1,4 @@
+/* used to hide catch button until pokemon load*/
+.hide-me{
+    display: none;
+}

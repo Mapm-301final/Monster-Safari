@@ -1,20 +1,26 @@
 'use strict';
-
-//gets user permission to use location and then calls the showPosition 
+//gets user permission to use location and then calls the showPosition
 
 //lnked to location .js gets current location
 window.onload = function() {
+
+  //Show position takes the current lat long and posts it to the server to be used in weather call, it also appends the lat and long to the DOM.
   navigator.geolocation.getCurrentPosition(showPosition);
+  
 };
 
 
 //Listens for click on button and gets current location.
 //Referance location JS
-$('#findMonster').click(getLocation);
+$('#findMonster').click(getLocation,function(){
+  
+});
+// );
+
 
 
 //gets location based on current device location
-function getLocation() {
+function getLocation(e) {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
   } else {
@@ -24,17 +30,11 @@ function getLocation() {
 
 
 let showPosition=(position)=>{
-  $.post('/currentLocation',
-    {currentlocation: position},
-    console.log('om in the function to append' ),
-    function(location, status) {
-      console.log('om in the function to append' );
-      $('p').append('status: ' + status + ', data: ' + location);
-    });
+  console.log(position.coords.latitude);
+  $('#curLoc').text('Current Lat: ' + position.coords.latitude + ', Current Long: ' + position.coords.longitude);
+  $('#currentLong').val(position.coords.longitude);
+  $('#currentLat').val(position.coords.latitude)
 };
-
-
-
 // $.post('/jquery/submitData',   // url
 //    { myData: 'This is my data.' }, // data to be submit
 //    function(data, status, jqXHR) {// success callback
