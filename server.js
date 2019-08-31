@@ -21,10 +21,10 @@ require('dotenv').config();
 //=================Postgres Database===============
 // DATABASE_URL=postgres://localhost:5432/monster
 
-const pg = require('pg');
-const client = new pg.Client(process.env.DATABASE_URL);
-client.connect();
-client.on('error', err=> console.error(err));
+// const pg = require('pg');
+// const client = new pg.Client(process.env.DATABASE_URL);
+// client.connect();
+// client.on('error', err=> console.error(err));
 
 //setting up ejs
 app.set('view engine', 'ejs');
@@ -69,7 +69,7 @@ function curLoc(request,response){
   response.render('pages/index',{ map: map})
     .then(
     // callweather(loc.clat, loc.clng)
-)
+    );
 }
 
 
@@ -84,7 +84,7 @@ function searchLatLong(request,response){
   // //using our superagent library to get the proper data format
   return superagent.get(url)
     .then(res =>{
-      let loc = res.body.results[0].geometry.location
+      let loc = res.body.results[0].geometry.location;
       let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.lat}%2c%20${loc.lng}&zoom=13&size=600x300&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;
       response.render('pages/index',{ map: map});
       console.log('Results of search to lat long', res.body.results[0].geometry.location);//Needs to be the call to the weather API
@@ -109,5 +109,83 @@ app.get('*', (request, response)=>{
 
 // POKEMON API CALLS
 
+// document.getElementById('random')
+//   .addEventListener('click', getRandomPokemon);
 
-// WEATHER API CALLS
+app.get('/pokemon', getRandomPokemon);
+
+function getRandomPokemon(request,response) {
+  var rand = Math.floor(Math.random() * 20) + 1;
+  let pokeapiArr = getType(rand);
+  console.log(pokeapiArr);
+  let randtwo = Math.floor(Math.random()*pokeapiArr.length);
+  response.render(pokeapiArr[randtwo]);
+}
+
+// function getPokemon(name) {
+//     fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`)
+//     .then(function (response) { return response.json(); })
+//     .then(function (json) {
+//         var pokemon = json;
+//         renderPokemon(pokemon);
+//     });
+// }
+
+function getType(id) {
+  return superagent.get(`https://pokeapi.co/api/v2/type/${id}/`)
+    .then(function (res) {console.log(res.json()); return res.json(); });
+  // .then(function (json) {
+  //     var pokemon = json;
+  //     return pokemon;
+  // });
+}
+
+
+
+// function displayPokemon(pokemon){
+//     // loop through and display the pokemon!
+
+// }
+
+// function renderPokemon(pokemon) {
+//   console.log(pokemon);
+//   var pkHeader = document.getElementById('pk-header');
+//   var pkName = document.getElementById('pk-name');
+//   var pkAbilities = document.getElementById('pk-abilities');
+//   var pkMoves = document.getElementById('pk-moves');
+
+//   pkHeader.innerHTML = '';
+//   pkAbilities.innerHTML = '';
+//   pkMoves.innerHTML = '';
+
+//   // render pokemon name
+//   var name = document.createElement('h1');
+//   name.innerHTML = pokemon.name;
+//   pkHeader.appendChild(name);
+
+//   // render pokemon image
+//   // var image = document.createElement('img');
+//   // image.src = pokemon.sprites.front_default;
+//   // pkHeader.appendChild(image);
+
+//   // // render pokemon type
+//   // for (var i = 0; i < pokemon.types.length; i++) {
+//   //     var ability = document.createElement("li")
+//   //     ability.innerHTML = pokemon.types[i].type.name;
+//   //     pkAbilities.appendChild(ability);
+//   // }
+
+//   // render pokemon moves
+//   for (var i = 0; i < pokemon.pokemon.length; i++) {
+//     var move = document.createElement('li');
+//     // var spriteFront = $("<img src=" + ['sprites']['front_default'] + ">");
+//     // // console.log( pokemon.sprites.front_default);
+//     // $("#pokemon_image").append(spriteFront);
+//     move.innerHTML = pokemon.pokemon[i].pokemon.name;
+//     pkMoves.appendChild(move);
+//   }
+//   // let ranMove = pokemon.moves[Math.floor(Math.random() * pokemon.moves.length)];
+// }
+
+
+// // WEATHER API CALLS
