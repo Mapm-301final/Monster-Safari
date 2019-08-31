@@ -102,10 +102,7 @@ function searchLatLong(request,response){
 // getWeather(request, response)
 // request.send(res=>       )
 
-//error handle
-app.get('*', (request, response)=>{
-  response.render('pages/error');
-});
+
 
 // POKEMON API CALLS
 
@@ -116,10 +113,8 @@ app.get('/pokemon', getRandomPokemon);
 
 function getRandomPokemon(request,response) {
   var rand = Math.floor(Math.random() * 20) + 1;
-  let pokeapiArr = getType(rand);
-  console.log(pokeapiArr);
-  let randtwo = Math.floor(Math.random()*pokeapiArr.length);
-  response.render(pokeapiArr[randtwo]);
+  let poke = getPokemon(rand);
+  console.log(poke);
 }
 
 // function getPokemon(name) {
@@ -131,13 +126,24 @@ function getRandomPokemon(request,response) {
 //     });
 // }
 
-function getType(id) {
-  return superagent.get(`https://pokeapi.co/api/v2/type/${id}/`)
-    .then(function (res) {console.log(res.json()); return res.json(); });
+function getPokemon(id) {
+  let url = `https://pokeapi.co/api/v2/type/${id}/`;
+  console.log(url);
+  return superagent.get(url)
+    .then(function (res) {
+      let pokeArr = res.body.pokemon;
+      let randtwo = Math.floor(Math.random()*pokeArr.length);
+      console.log(pokeArr[randtwo]);
+      return pokeArr[randtwo];
+    }).catch('oops');
   // .then(function (json) {
   //     var pokemon = json;
   //     return pokemon;
   // });
+}
+
+function Pokemon(pokedata){
+
 }
 
 
@@ -189,3 +195,8 @@ function getType(id) {
 
 
 // // WEATHER API CALLS
+
+//error handle
+app.get('*', (request, response)=>{
+  response.render('pages/error');
+});
