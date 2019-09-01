@@ -5,17 +5,12 @@
 </head>
 <body>
     <header>
-        
+        <%- include('../partials/header') %>
     </header>
     <main id="main">
-        <p id="curLoc"></p>
-        <h1>Monster Safari!</h1>
 
-<!-- options 
-hide map image until button click
-showe placehoder until button clicked -->
-        
         <img id="map" src="<%= map %>"/>    
+       
         <form id="findMonster" action="/currentLocation" method="POST" >
             <input id="currentLat" type="hidden" name="clat" value="">
             <input id="currentLong" type="hidden" name="clng" value="">
@@ -25,7 +20,7 @@ showe placehoder until button clicked -->
         
         <form class="textInput" action="/getLocation" method="POST">
             <label for="search">Enter a City to Search For a Monster</label>
-            <input id="input" type="text" placeholder="City" name="search">
+            <input id="input" type="text" placeholder="Enter a city" name="search"  required>
             <button type="submit">Search for Monsters!</button>
         </form>
 
