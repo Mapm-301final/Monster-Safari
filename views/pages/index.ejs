@@ -8,13 +8,28 @@
         
     </header>
     <main id="main">
+        <p id="curLoc"></p>
         <h1>Monster Safari!</h1>
-        <button id="findMonster">Find monster at my location!</button>
+
+<!-- options 
+hide map image until button click
+showe placehoder until button clicked -->
         
-        <form class="textInput" action="/location" method="GET">
-            <input id="input" type="text" placeholder="City" value="">
+        <img id="map" src="<%= map %>"/>    
+        <form id="findMonster" action="/currentLocation" method="POST" >
+            <input id="currentLat" type="hidden" name="clat" value="">
+            <input id="currentLong" type="hidden" name="clng" value="">
+            <button type="submit" >Find monster at my location!</button>
+        </form>
+        
+        
+        <form class="textInput" action="/getLocation" method="POST">
+            <label for="search">Enter a City to Search For a Monster</label>
+            <input id="input" type="text" placeholder="Enter a city" name="search"  required>
             <button type="submit">Search for Monsters!</button>
         </form>
+
+        <button class="hide-me" id="subToDB" type="submit">Catch Monster</button>
 
     </main>
     <footer>

@@ -2,16 +2,16 @@
 
 
 // DATABASE_URL=postgres://localhost:5432/monster
+//PORT
+const PORT = process.env.PORT || 3000;
 
 //Express
 const express = require('express');
 const app = express();
 
-
 //cors
 const cors = require('cors');
 app.use(cors());
-
 
 //superagent
 const superagent = require('superagent');
@@ -26,56 +26,76 @@ const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', err=> console.error(err));
 
-
 //setting up ejs
 app.set('view engine', 'ejs');
 app.use(express.static('./public/../'));
-
 app.use(express.urlencoded({extended:true}));
-
-
-//PORT
-const PORT = process.env.PORT || 3000;
-
 
 //tells our server to start listening on the port
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 
-
 //method-override
 // const methodOverride = require('method-overrride');
 
-
 //initial index page
 app.get('/', (request, response)=>{
-  response.render('pages/index');
+  let map = 'http://www.pngmart.com/files/2/Pikachu-PNG-Free-Download.png';
+  response.render('pages/index',{ map: map});
 });
 
+//Gets current location
+app.post('/currentLocation' , curLoc);
 //calls Geocode
-app.get('/location',searchLatLong);
+app.post('/getLocation',searchLatLong);
+
 //get s weather based on results returned by google
 // app.get('/weather', (request, response));
 
 
-
+// map.render('pages/index')
 //===============================================================================================//
 //**************************************     Functions     ************************************//
+
+// function getMap(lat,lng){
+//   let map =`https://maps.googleapis.com/maps/api/staticmap?center=${lat}%2c%20${lng}&zoom=13&size=600x300&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;
+//   return map;
+// }
+
+function curLoc(request,response){
+  let loc = request.body;
+  console.log( loc , 'curloc request');
+  let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=13&size=600x300&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;
+  console.log('map rendered');
+  response.render('pages/index',{ map: map})
+    .then(
+    // callweather(loc.clat, loc.clng)
+)
+}
+
+
 
 
 
 
 //Gets location based on search query
-function searchLatLong(query){
-  console.log(query,'somthing abnoxious');
+function searchLatLong(request,response){
+  let query = request.body.search;
   const url =`https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=${process.env.GEOCODE_API_KEY}`;
-  //using our superagent library to get the proper data format
+  // //using our superagent library to get the proper data format
   return superagent.get(url)
-
-  //then when we got the data from superagent create a new City object with the query (location name) and data (res.body.results[0]);
-    .then(res => {
-      // console.log(res);
-      // return res.body.results[0].data.geometry.location.lat,res.body.results[0].data.geometry.location.long ;
+    .then(res =>{
+      let loc = res.body.results[0].geometry.location
+      let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.lat}%2c%20${loc.lng}&zoom=13&size=600x300&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;
+      response.render('pages/index',{ map: map});
+      console.log('Results of search to lat long', res.body.results[0].geometry.location);//Needs to be the call to the weather API
     });
+
+  // //then when we got the data from superagent create a new City object with the query (location name) and data (res.body.results[0]);
+  // .then(res => {
+  // res.render('/');
+  //     // console.log(res);
+  //     // return res.body.results[0].data.geometry.location.lat,res.body.results[0].data.geometry.location.long ;
+  //   });
 
 }
 
