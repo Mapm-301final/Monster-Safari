@@ -48,11 +48,9 @@ app.post('/currentLocation' , curLoc);
 //calls Geocode
 app.post('/getLocation',searchLatLong);
 
-//get s weather based on results returned by google
+//get weather based on results returned by google
 // app.get('/weather', (request, response));
 
-
-// map.render('pages/index')
 //===============================================================================================//
 //**************************************     Functions     ************************************//
 
@@ -69,7 +67,7 @@ function curLoc(request,response){
   response.render('pages/index',{ map: map})
     .then(
     // callweather(loc.clat, loc.clng)
-)
+    );
 }
 
 

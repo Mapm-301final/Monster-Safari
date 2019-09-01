@@ -11,7 +11,9 @@ window.onload = function() {
 
 //Listens for click on button and gets current location.
 //Referance location JS
-$('#findMonster').click(getLocation);
+$('#findMonster').click(getLocation, function(){
+  $('#subToDB').removeClass('hide-me');
+});
 
 
 
