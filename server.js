@@ -106,14 +106,14 @@ function searchLatLong(request,response){
 
 // POKEMON API CALLS
 
-// document.getElementById('random')
-//   .addEventListener('click', getRandomPokemon);
+
 
 app.get('/pokemon', getRandomPokemon);
 
-function getRandomPokemon(request,response) {
+function getRandomPokemon() {
   var rand = Math.floor(Math.random() * 20) + 1;
   let poke = getPokemon(rand);
+  // response.send(rand);
   console.log(poke);
 }
 
@@ -130,20 +130,22 @@ function getPokemon(id) {
   let url = `https://pokeapi.co/api/v2/type/${id}/`;
   console.log(url);
   return superagent.get(url)
-    .then(function (res) {
+    .then(res => {
       let pokeArr = res.body.pokemon;
       let randtwo = Math.floor(Math.random()*pokeArr.length);
       console.log(pokeArr[randtwo]);
       return pokeArr[randtwo];
-    }).catch('oops');
-  // .then(function (json) {
-  //     var pokemon = json;
-  //     return pokemon;
-  // });
+    })
+    .catch('oops');
 }
 
-function Pokemon(pokedata){
-
+function renderPokemon(getPokemon){
+  if (weather === sunny) {
+    // render random from  fire group
+  }
+  if (weather === cloudy){
+    // render random of normal group
+  }
 }
 
 
@@ -152,22 +154,6 @@ function Pokemon(pokedata){
 //     // loop through and display the pokemon!
 
 // }
-
-// function renderPokemon(pokemon) {
-//   console.log(pokemon);
-//   var pkHeader = document.getElementById('pk-header');
-//   var pkName = document.getElementById('pk-name');
-//   var pkAbilities = document.getElementById('pk-abilities');
-//   var pkMoves = document.getElementById('pk-moves');
-
-//   pkHeader.innerHTML = '';
-//   pkAbilities.innerHTML = '';
-//   pkMoves.innerHTML = '';
-
-//   // render pokemon name
-//   var name = document.createElement('h1');
-//   name.innerHTML = pokemon.name;
-//   pkHeader.appendChild(name);
 
 //   // render pokemon image
 //   // var image = document.createElement('img');
