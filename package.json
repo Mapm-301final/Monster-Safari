@@ -1,5 +1,5 @@
 {
-  "name": "monster-safari",
+  "name": "monster_safari",
   "version": "1.0.0",
   "description": "Final 301 Project. Name tentative. Find Pokemon around the world based on Location &amp; Weather ##WIKI https://github.com/Mapm-301final/Monster-Safari/wiki",
   "main": "server.js",
@@ -11,6 +11,7 @@
     "express": "^4.17.1",
     "geolocation": "^0.2.0",
     "method-override": "^3.0.0",
+    "pg": "^7.12.1",
     "superagent": "^5.1.0"
   },
   "devDependencies": {},
@@ -22,11 +23,15 @@
     "type": "git",
     "url": "git+https://github.com/Mapm-301final/Monster-Safari.git"
   },
-  "author": "",
+  "author": "code_fellows_301_group_morgan_ahren_pt_mae",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Mapm-301final/Monster-Safari/issues"
   },
   "homepage": "https://github.com/Mapm-301final/Monster-Safari#readme",
-  "keywords": []
+
+  "keywords": [
+    "monster"
+  ]
+
 }

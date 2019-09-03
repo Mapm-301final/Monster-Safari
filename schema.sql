@@ -1,3 +1,5 @@
+-- psql -d myDataBase -a -f myInsertFile.sql
+
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS pokefound;
 DROP TABLE IF EXISTS poke;

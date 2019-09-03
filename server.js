@@ -48,11 +48,9 @@ app.post('/currentLocation' , curLoc);
 //calls Geocode
 app.post('/getLocation',searchLatLong);
 
-//get s weather based on results returned by google
+//get weather based on results returned by google
 // app.get('/weather', (request, response));
 
-
-// map.render('pages/index')
 //===============================================================================================//
 //**************************************     Functions     ************************************//
 
@@ -67,9 +65,7 @@ function curLoc(request,response){
   let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=13&size=600x300&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;
   console.log('map rendered');
   response.render('pages/index',{ map: map})
-    .then(
-    // callweather(loc.clat, loc.clng)
-    );
+  getRandomPokemon();
 }
 
 
@@ -108,7 +104,7 @@ function searchLatLong(request,response){
 
 
 
-app.get('/pokemon', getRandomPokemon);
+// functionget('/pokemon', getRandomPokemon);
 
 function getRandomPokemon() {
   var rand = Math.floor(Math.random() * 20) + 1;
@@ -133,11 +129,22 @@ function getPokemon(id) {
     .then(res => {
       let pokeArr = res.body.pokemon;
       let randtwo = Math.floor(Math.random()*pokeArr.length);
-      console.log(pokeArr[randtwo]);
-      return pokeArr[randtwo];
+      console.log(pokeArr[randtwo],'blah blah');
+      pokeArr = pokeArr[randtwo];
+      return superagent.get(pokeArr.pokemon.url)
+        .then(result =>{
+          console.log(result.body);
+
+        });
+
     })
     .catch('oops');
 }
+
+// function PokeFound()
+
+
+
 
 function renderPokemon(getPokemon){
   if (weather === sunny) {
