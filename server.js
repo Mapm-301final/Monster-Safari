@@ -64,7 +64,7 @@ function curLoc(request,response){
   console.log( loc , 'curloc request');
   let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=13&size=600x300&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;
   console.log('map rendered');
-  response.render('pages/index',{ map: map})
+  response.render('pages/index',{ map: map});
   getRandomPokemon();
 }
 
@@ -133,17 +133,19 @@ function getPokemon(id) {
       pokeArr = pokeArr[randtwo];
       return superagent.get(pokeArr.pokemon.url)
         .then(result =>{
-          console.log(result.body);
-
+          let pokeInfo = result.body;
+          return new PokeFound(pokeInfo);
         });
 
     })
     .catch('oops');
 }
 
-// function PokeFound()
-
-
+function PokeFound(data){
+  this.name = data.name;
+  this.icon = data.sprites.front_default; //will use for map icon.
+  this.type = data.types[0].type.name;
+}
 
 
 function renderPokemon(getPokemon){
