@@ -1,6 +1,7 @@
 'use strict';
 
 
+
 // DATABASE_URL=postgres://localhost:5432/monster
 //PORT
 const PORT = process.env.PORT || 3000;
@@ -59,18 +60,14 @@ app.post('/getLocation',searchLatLong);
 //   return map;
 // }
 
-function curLoc(request,response){
-  let loc = request.body;
-  console.log( loc , 'curloc request');
-  let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=13&size=600x300&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;
-  console.log('map rendered');
-  response.render('pages/index',{ map: map});
-  getRandomPokemon();
-}
 
 
 
 
+
+//helper function that pulls the poke in selections sprite and
+
+// {`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=10&size=600x300&maptype=roadmap&markers=anchor:center%7Cicon:${mapIcon}&key=`;}
 
 
 //Gets location based on search query
@@ -85,21 +82,40 @@ function searchLatLong(request,response){
       response.render('pages/index',{ map: map});
       console.log('Results of search to lat long', res.body.results[0].geometry.location);//Needs to be the call to the weather API
     });
-
-  // //then when we got the data from superagent create a new City object with the query (location name) and data (res.body.results[0]);
-  // .then(res => {
-  // res.render('/');
-  //     // console.log(res);
-  //     // return res.body.results[0].data.geometry.location.lat,res.body.results[0].data.geometry.location.long ;
-  //   });
-
 }
 
-// getWeather(request, response)
-// request.send(res=>       )
+// //then when we got the data from superagent create a new City object with the query (location name) and data (res.body.results[0]);
+// .then(res => {
+// res.render('/');
+//     // console.log(res);
+//     // return res.body.results[0].data.geometry.location.lat,res.body.results[0].data.geometry.location.long ;
+//   });
 
 
 
+// let pokeImg = encodeURI(`https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:64/${img}`);
+
+// let mapIcon =`https://cdn.filestackcontent.com/YOUR APIKEY/resize=height:64/${pokeFound.icon}`;
+
+function curLoc(request,response){
+  let loc = request.body;
+  console.log( loc , 'curloc request');
+  getRandomPokemon()
+    .then(img=>{
+      let pokeImg = `https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:64/${img.icon}`;
+      let encodedImage = encodeURI(pokeImg);
+      return encodedImage;
+    })
+    .then(res=>{
+      console.log(res, 'hello body');
+      let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=13&size=600x300&markers=icon:${res}%7Csize:large%7Ccolor:red%7C${loc.clat}%2c%20${loc.clng}&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;//would like to have a map the pans into the location would have to be a series of maps with at timeout and an incrementer for the zoom
+      // `https://maps.googleapis.com/maps/api/staticmap?center=${request.body.latitude}%2c%20${request.body.longitude}&zoom=8&size=400x400&markers=icon:${encodedImage}%7Csize:large%7Ccolor:red%7C${request.body.latitude},${request.body.longitude}&maptype=hybrid&key=${process.env.GEOCODE_API_KEY}`;
+
+      console.log(map);
+      response.render('pages/index',{ map: map});
+
+    });
+}
 // POKEMON API CALLS
 
 
@@ -108,20 +124,10 @@ function searchLatLong(request,response){
 
 function getRandomPokemon() {
   var rand = Math.floor(Math.random() * 20) + 1;
-  let poke = getPokemon(rand);
-  // response.send(rand);
-  console.log(poke);
+  return getPokemon(rand);
 }
 
-// function getPokemon(name) {
-//     fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`)
-//     .then(function (response) { return response.json(); })
-//     .then(function (json) {
-//         var pokemon = json;
-//         renderPokemon(pokemon);
-//     });
-// }
-
+//gets a random pokemon and then gets the information for that pokemon and runs it through the poke constructor.
 function getPokemon(id) {
   let url = `https://pokeapi.co/api/v2/type/${id}/`;
   console.log(url);
@@ -141,6 +147,8 @@ function getPokemon(id) {
     .catch('oops');
 }
 
+
+//Poke object constructor
 function PokeFound(data){
   this.name = data.name;
   this.icon = data.sprites.front_default; //will use for map icon.
@@ -148,15 +156,23 @@ function PokeFound(data){
 }
 
 
-function renderPokemon(getPokemon){
-  if (weather === sunny) {
-    // render random from  fire group
-  }
-  if (weather === cloudy){
-    // render random of normal group
-  }
-}
+// // function renderPokemon(getPokemon){
+// //   if (weather === sunny) {
+// //     // render random from  fire group
+// //   }
+// //   if (weather === cloudy){
+// //     // render random of normal group
+//   }
+// }
 
+// function getPokemon(name) {
+//     fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`)
+//     .then(function (response) { return response.json(); })
+//     .then(function (json) {
+//         var pokemon = json;
+//         renderPokemon(pokemon);
+//     });
+// }
 
 
 // function displayPokemon(pokemon){
