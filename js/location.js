@@ -12,7 +12,7 @@ window.onload = function() {
 //Listens for click on button and gets current location.
 //Referance location JS
 $('#findMonster').click(getLocation, function(){
-  $('#subToDB').removeClass('hide-me');
+  // $('#subToDB').removeClass('hide-me');
 });
 
 
@@ -41,3 +41,7 @@ let showPosition=(position)=>{
 // });
 
 
+// fire an event for a form submit that calls callback
+// prevent a default 
+// make ajax calll to backend with content form form 
+// when i have lat long in frontend make the api call to google maps api

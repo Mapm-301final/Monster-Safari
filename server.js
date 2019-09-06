@@ -45,9 +45,11 @@ app.get('/', (request, response)=>{
 });
 
 //Gets current location
-app.post('/currentLocation' , curLoc);
+app.post('/found' , curLoc);
 //calls Geocode
 app.post('/getLocation',searchLatLong);
+
+app.post
 
 
 //===============================================================================================//
@@ -61,6 +63,7 @@ function searchLatLong(request,response){
   // //using our superagent library to get the proper data format
   return superagent.get(url)
     .then(res =>{
+      console.log(res.body);
       let loc = res.body.results[0].geometry.location;
       getRandomPokemon()
         .then(img=>{
@@ -93,8 +96,7 @@ function curLoc(request,response){
       console.log(res, 'hello body');
       let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=13&size=600x300&markers=icon:${res}%7Csize:large%7Ccolor:red%7C${loc.clat}%2c%20${loc.clng}&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;//would like to have a map the pans into the location would have to be a series of maps with at timeout and an incrementer for the zoom
       console.log(map);
-      response.render('pages/index',{ map: map});
-
+      response.render('pages/found',{ map: map});
     });
 }
 // POKEMON API CALLS
