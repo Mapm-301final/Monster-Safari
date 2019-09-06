@@ -49,6 +49,10 @@ app.post('/found' , curLoc);
 app.post('/getLocation',searchLatLong);
 app.post('/caught', pokeTrap);
 
+//route to about us page
+app.get('/about', (request, response)=>{
+  response.render('pages/about');
+});
 
 //===============================================================================================//
 //**************************************     Functions     ************************************//
