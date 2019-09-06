@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head') %>
+    </head>
+    <body>
+        <header>
+            <%- include('../partials/header') %>
+        </header>
+        <main id="main">
+                <% pokeVault.forEach(item => { %>
+                    <section id="pokeDisplay">
+                            <p>Name: <%= item.name %></p>
+                            <p>Type: <%= item.type %></p>
+                            <p><img src="<%= item.img %>"></p>
+                        </section>
+                        <% }); %>
+                       
+        </main>
+        <footer>
+            <%- include('../partials/footer') %>
+        </footer>
+        
+    </body>
+</html>
+
+
+https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:85/https://www.clipartmax.com/middle/m2i8N4N4K9K9d3m2_pokeball-pokemon-game-ball-png-image-pokeball-fondo-transparente/
