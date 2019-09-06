@@ -8,21 +8,14 @@
             <%- include('../partials/header') %>
         </header>
         <main id="main">
-                <% poketrap.forEach(item => { %>
+                <% pokeVault.forEach(item => { %>
                     <section id="pokeDisplay">
-                        <p>Name: <%= .name %></p>
-                        <p></p>
-                        <p></p>
-                    </section>
-                    <section id="details">
-                        <p><img src="<%= item.image_url %>" alt="book image" width="30%"></p>
-                        <p>Book Title: <%= item.title %></p>
-                        <p>Book Author: <%= item.author %></p>
-                        <p>Book ISBN: <%= item.isbn %></p>
-                        <p>Book Description: <%= item.description %></p>
-                        <p id="total"<%= item.bookshelf %></p>
-                        <br>
-                    </section>
+                            <p>Name: <%= item.name %></p>
+                            <p>Type: <%= item.type %></p>
+                            <p><img src="<%= item.img %>"></p>
+                        </section>
+                        <% }); %>
+                       
         </main>
         <footer>
             <%- include('../partials/footer') %>
@@ -30,3 +23,6 @@
         
     </body>
 </html>
+
+
+https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:85/https://www.clipartmax.com/middle/m2i8N4N4K9K9d3m2_pokeball-pokemon-game-ball-png-image-pokeball-fondo-transparente/

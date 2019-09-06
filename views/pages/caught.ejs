@@ -8,10 +8,14 @@
             <%- include('../partials/header') %>
         </header>
         <main id="main">
+            <p><h1>You caught!</h1></p>
                     <section id="pokeDisplay">
                         <p>Name: <%= pokeTrap[0] %></p>
                         <p>Type: <%= pokeTrap[1]%></p>
                         <p><img src="<%= pokeTrap[3]%>"></p>
+                    </section>
+                    <section>
+                            <%- include('../partials/main') %>
                     </section>
         </main>
         <footer>

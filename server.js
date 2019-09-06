@@ -45,7 +45,7 @@ app.get('/', (request, response)=>{
 });
 
 //route to get Poke in the vault and display
-// app.get('/')
+app.get('/pokevault', pokevault)
 
 //route to about us page
 app.get('/about', (request, response)=>{
@@ -62,15 +62,20 @@ app.post('/caught', trap);
 //===============================================================================================//
 //**************************************     Functions     ************************************//
 
-
-function pokevault(request, response){
+// function to show all caught pokemon
+function pokevault(response){
   console.log('Starting Vault Display');
   const SQL= 'SELECT * FROM poke';
+  return client.query(SQL)
+    .then(res => {
+      if(res.rowCount > 0) {
+        console.log(res.rows);
+        response.render('pages/pokevault',{pokeVault: res.rows});
+      }
+    });
 }
 
-
-
-
+// FUnction to store a poke in the database
 function trap(request,response){
   console.log(request.body.data, 'send to DB');
   const SQL= `INSERT INTO poke (name, type, icon, img) VALUES ($1,$2,$3,$4)`;
@@ -132,9 +137,10 @@ function getPokemon(id) {
       return superagent.get(pokeArr.pokemon.url)
         .then(result =>{
           let pokeInfo = result.body;
+          console.log(pokeInfo.sprites.front_default);
+          (pokeInfo.sprites.front_default === null? pokeInfo.sprites.front_default= `https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:85/https://www.clipartmax.com/middle/m2i8N4N4K9K9d3m2_pokeball-pokemon-game-ball-png-image-pokeball-fondo-transparente/`: null);
           return new PokeFound(pokeInfo);
         });
-
     })
     .catch('oops');
 }

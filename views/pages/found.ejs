@@ -8,6 +8,7 @@
         <%- include('../partials/header') %>
     </header>
     <main id="main">
+            <img id="map" src="<%= map %>"/>
         <%- include('../partials/main') %>
             <form id="DBsub" action="/caught" method="POST">
             <label>Name:<input type="text" name="data" value="<%= llama.name %>"></label>
