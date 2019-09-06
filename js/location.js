@@ -3,7 +3,6 @@
 
 //lnked to location .js gets current location
 window.onload = function() {
-
   //Show position takes the current lat long and posts it to the server to be used in weather call, it also appends the lat and long to the DOM.
   navigator.geolocation.getCurrentPosition(showPosition);
 };
@@ -11,8 +10,8 @@ window.onload = function() {
 
 //Listens for click on button and gets current location.
 //Referance location JS
-$('#findMonster').click(getLocation, function(){
-  $('#subToDB').removeClass('hide-me');
+$('#findMonster').submit(getLocation, function(){
+  // $('#subToDB').removeClass('hide-me');
 });
 
 
@@ -41,3 +40,7 @@ let showPosition=(position)=>{
 // });
 
 
+// fire an event for a form submit that calls callback
+// prevent a default 
+// make ajax calll to backend with content form form 
+// when i have lat long in frontend make the api call to google maps api

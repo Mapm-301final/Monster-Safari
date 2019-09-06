@@ -8,26 +8,7 @@
         <%- include('../partials/header') %>
     </header>
     <main id="main">
-        
-      
-
-        <img id="map" src="<%= map %>"/>    
-       
-        <form class="findMonster" id="findMonster" action="/currentLocation" method="POST" >
-            <input id="currentLat" type="hidden" name="clat" value="">
-            <input id="currentLong" type="hidden" name="clng" value="">
-            <button type="submit" >Find monster at my location!</button>
-        </form>
-        
-        
-        <form class="textInput" action="/getLocation" method="POST">
-            <label for="search"></label>
-            <input id="input" type="text" placeholder="Enter a city" name="search"  required>
-            <button type="submit">Search for Monsters!</button>
-        </form>
-
-        <button class="hide-me" id="subToDB" type="submit">Catch Monster</button>
-
+        <%- include('../partials/main') %>
     </main>
     <footer>
     

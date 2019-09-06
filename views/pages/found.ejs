@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <main id="main">
+        <%- include('../partials/main') %>
+            <form id="DBsub" action="/caught" method="POST">
+            <label>Name:<input type="text" name="data" value="<%= llama.name %>"></label>
+            <label>Type:<input type="text" name="data" value="<%= llama.type %>"></label>
+            <input type="hidden" name="data" value="<%= llama.icon %>">
+            <button id="subToDB" type="submit">Catch Monster</button>
+        </form>
+        <!-- needs to be able to submit the current pokemon data to a DB -->
+        <!-- see whats still in the backend? -->
+        
+    </main>
+    <footer>
+    
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../../js/location.js"></script>
+    <script src="../../js/app.js"></script>
+</body>
+</html>
