@@ -49,25 +49,9 @@ app.post('/currentLocation' , curLoc);
 //calls Geocode
 app.post('/getLocation',searchLatLong);
 
-//get weather based on results returned by google
-// app.get('/weather', (request, response));
 
 //===============================================================================================//
 //**************************************     Functions     ************************************//
-
-// function getMap(lat,lng){
-//   let map =`https://maps.googleapis.com/maps/api/staticmap?center=${lat}%2c%20${lng}&zoom=13&size=600x300&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;
-//   return map;
-// }
-
-
-
-
-
-
-//helper function that pulls the poke in selections sprite and
-
-// {`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=10&size=600x300&maptype=roadmap&markers=anchor:center%7Cicon:${mapIcon}&key=`;}
 
 
 //Gets location based on search query
@@ -78,24 +62,23 @@ function searchLatLong(request,response){
   return superagent.get(url)
     .then(res =>{
       let loc = res.body.results[0].geometry.location;
-      let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.lat}%2c%20${loc.lng}&zoom=13&size=600x300&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;
-      response.render('pages/index',{ map: map});
-      console.log('Results of search to lat long', res.body.results[0].geometry.location);//Needs to be the call to the weather API
+      getRandomPokemon()
+        .then(img=>{
+          console.log(img, 'hello img');
+          let pokeImg = `https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:64/${img.icon}`;
+          let encodedImage = encodeURI(pokeImg);
+          return encodedImage;
+        })
+        .then(res=>{
+          console.log(res, 'hello body');
+          console.log(loc, 'location');
+          let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.lat}%2c%20${loc.lng}&zoom=13&size=600x300&markers=icon:${res}%7Csize:large%7Ccolor:red%7C${loc.lat}%2c%20${loc.lng}&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;//would like to have a map the pans into the location would have to be a series of maps with at timeout and an incrementer for the zoom
+          console.log(map);
+          response.render('pages/index',{ map: map});
+        });
     });
 }
 
-// //then when we got the data from superagent create a new City object with the query (location name) and data (res.body.results[0]);
-// .then(res => {
-// res.render('/');
-//     // console.log(res);
-//     // return res.body.results[0].data.geometry.location.lat,res.body.results[0].data.geometry.location.long ;
-//   });
-
-
-
-// let pokeImg = encodeURI(`https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:64/${img}`);
-
-// let mapIcon =`https://cdn.filestackcontent.com/YOUR APIKEY/resize=height:64/${pokeFound.icon}`;
 
 function curLoc(request,response){
   let loc = request.body;
@@ -109,18 +92,12 @@ function curLoc(request,response){
     .then(res=>{
       console.log(res, 'hello body');
       let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=13&size=600x300&markers=icon:${res}%7Csize:large%7Ccolor:red%7C${loc.clat}%2c%20${loc.clng}&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;//would like to have a map the pans into the location would have to be a series of maps with at timeout and an incrementer for the zoom
-      // `https://maps.googleapis.com/maps/api/staticmap?center=${request.body.latitude}%2c%20${request.body.longitude}&zoom=8&size=400x400&markers=icon:${encodedImage}%7Csize:large%7Ccolor:red%7C${request.body.latitude},${request.body.longitude}&maptype=hybrid&key=${process.env.GEOCODE_API_KEY}`;
-
       console.log(map);
       response.render('pages/index',{ map: map});
 
     });
 }
 // POKEMON API CALLS
-
-
-
-// functionget('/pokemon', getRandomPokemon);
 
 function getRandomPokemon() {
   var rand = Math.floor(Math.random() * 20) + 1;
@@ -203,9 +180,6 @@ function PokeFound(data){
 //   }
 //   // let ranMove = pokemon.moves[Math.floor(Math.random() * pokemon.moves.length)];
 // }
-
-
-// // WEATHER API CALLS
 
 //error handle
 app.get('*', (request, response)=>{
