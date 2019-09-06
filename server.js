@@ -49,6 +49,10 @@ app.post('/found' , curLoc);
 app.post('/getLocation',searchLatLong);
 app.post('/caught', pokeTrap);
 
+//route to about us page
+app.get('/about', (request, response)=>{
+  response.render('pages/about');
+});
 
 //===============================================================================================//
 //**************************************     Functions     ************************************//
@@ -113,7 +117,7 @@ function curLoc(request,response){
       console.log(res, 'hello body');
       let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=13&size=600x300&markers=icon:${res.icon}%7Csize:large%7Ccolor:red%7C${loc.clat}%2c%20${loc.clng}&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;//would like to have a map the pans into the location would have to be a series of maps with at timeout and an incrementer for the zoom
       console.log(map);
-      response.render('pages/found',{ map: map});
+      response.render('pages/found',{map: map, llama: res});
     });
 }
 // POKEMON API CALLS
