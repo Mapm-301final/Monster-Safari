@@ -138,7 +138,7 @@ function getPokemon(id) {
         .then(result =>{
           let pokeInfo = result.body;
           console.log(pokeInfo.sprites.front_default);
-          (pokeInfo.sprites.front_default === null? pokeInfo.sprites.front_default= `https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:85/https://www.clipartmax.com/middle/m2i8N4N4K9K9d3m2_pokeball-pokemon-game-ball-png-image-pokeball-fondo-transparente/`: null);
+          (pokeInfo.sprites.front_default === null? pokeInfo.sprites.front_default= `https://www.clipartmax.com/middle/m2i8N4N4K9K9d3m2_pokeball-pokemon-game-ball-png-image-pokeball-fondo-transparente/`: null);
           return new PokeFound(pokeInfo);
         });
     })
