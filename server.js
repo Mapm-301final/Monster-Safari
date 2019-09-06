@@ -152,54 +152,6 @@ function PokeFound(data){
 }
 
 
-// // function renderPokemon(getPokemon){
-// //   if (weather === sunny) {
-// //     // render random from  fire group
-// //   }
-// //   if (weather === cloudy){
-// //     // render random of normal group
-//   }
-// }
-
-// function getPokemon(name) {
-//     fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`)
-//     .then(function (response) { return response.json(); })
-//     .then(function (json) {
-//         var pokemon = json;
-//         renderPokemon(pokemon);
-//     });
-// }
-
-
-// function displayPokemon(pokemon){
-//     // loop through and display the pokemon!
-
-// }
-
-//   // render pokemon image
-//   // var image = document.createElement('img');
-//   // image.src = pokemon.sprites.front_default;
-//   // pkHeader.appendChild(image);
-
-//   // // render pokemon type
-//   // for (var i = 0; i < pokemon.types.length; i++) {
-//   //     var ability = document.createElement("li")
-//   //     ability.innerHTML = pokemon.types[i].type.name;
-//   //     pkAbilities.appendChild(ability);
-//   // }
-
-//   // render pokemon moves
-//   for (var i = 0; i < pokemon.pokemon.length; i++) {
-//     var move = document.createElement('li');
-//     // var spriteFront = $("<img src=" + ['sprites']['front_default'] + ">");
-//     // // console.log( pokemon.sprites.front_default);
-//     // $("#pokemon_image").append(spriteFront);
-//     move.innerHTML = pokemon.pokemon[i].pokemon.name;
-//     pkMoves.appendChild(move);
-//   }
-//   // let ranMove = pokemon.moves[Math.floor(Math.random() * pokemon.moves.length)];
-// }
-
 //error handle
 app.get('*', (request, response)=>{
   response.render('pages/error');
