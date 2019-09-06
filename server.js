@@ -57,28 +57,22 @@ app.get('/about', (request, response)=>{
 //===============================================================================================//
 //**************************************     Functions     ************************************//
 
+
+// function showDB(){}
+
+
+
+
 function pokeTrap(request,response){
   console.log(request, 'send to DB');
   const SQL= `INSERT INTO poke (poke_name, image_url, type) VALUES ($1,$2,$3)`;
   const values= [request.body.data[0],request.body.data[2],request.body.data[1]];
   return client.query(SQL,values)
     .then(res=>{
-      response.redirect('/');
+      response.redirect('/pokevault');
     })
     .catch('oops');
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 //Gets location based on search query
 function searchLatLong(request,response){
@@ -154,7 +148,6 @@ function PokeFound(data){
   this.icon = data.sprites.front_default; //will use for map icon.
   this.type = data.types[0].type.name;
 }
-
 
 //error handle
 app.get('*', (request, response)=>{
