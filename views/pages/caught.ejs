@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head') %>
+    </head>
+    <body>
+        <header>
+            <%- include('../partials/header') %>
+        </header>
+        <main id="main">
+                    <section id="pokeDisplay">
+                        <p>Name: <%= pokeTrap[0] %></p>
+                        <p>Type: <%= pokeTrap[1]%></p>
+                        <p><img src="<%= pokeTrap[3]%>"></p>
+                    </section>
+        </main>
+        <footer>
+            <%- include('../partials/footer') %>
+        </footer>
+        
+    </body>
+</html>

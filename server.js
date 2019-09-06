@@ -43,33 +43,42 @@ app.get('/', (request, response)=>{
   let map = '';
   response.render('pages/index',{ map: map});
 });
-//Gets current location
-app.post('/found' , curLoc);
-//calls Geocode
-app.post('/getLocation',searchLatLong);
-app.post('/caught', pokeTrap);
+
+//route to get Poke in the vault and display
+// app.get('/')
 
 //route to about us page
 app.get('/about', (request, response)=>{
   response.render('pages/about');
 });
 
+//Gets current location
+app.post('/found' , curLoc);
+//calls Geocode
+app.post('/getLocation',searchLatLong);
+app.post('/caught', trap);
+
+
 //===============================================================================================//
 //**************************************     Functions     ************************************//
 
 
-// function showDB(){}
+function pokevault(request, response){
+  console.log('Starting Vault Display');
+  const SQL= 'SELECT * FROM poke';
+}
 
 
 
 
-function pokeTrap(request,response){
-  console.log(request, 'send to DB');
-  const SQL= `INSERT INTO poke (poke_name, image_url, type) VALUES ($1,$2,$3)`;
-  const values= [request.body.data[0],request.body.data[2],request.body.data[1]];
+function trap(request,response){
+  console.log(request.body.data, 'send to DB');
+  const SQL= `INSERT INTO poke (name, type, icon, img) VALUES ($1,$2,$3,$4)`;
+  const values= [request.body.data[0],request.body.data[1],request.body.data[2],request.body.data[3]];
   return client.query(SQL,values)
     .then(res=>{
-      response.redirect('/pokevault');
+      console.log(values,'res???????');
+      response.render('pages/caught',{pokeTrap: values});
     })
     .catch('oops');
 }
@@ -81,15 +90,10 @@ function searchLatLong(request,response){
   // //using our superagent library to get the proper data format
   return superagent.get(url)
     .then(res =>{
-      // console.log(res.body);
       let loc = res.body.results[0].geometry.location;
       getRandomPokemon()
-        .then(img=>{
-          let pokeImg = `https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:64/${img.icon}`;
-          img.icon = encodeURI(pokeImg);
-          return img;
-        })
         .then(res=>{
+          console.log(res, 'hello body');
           let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.lat}%2c%20${loc.lng}&zoom=13&size=600x300&markers=icon:${res.icon}%7Csize:large%7Ccolor:red%7C${loc.lat}%2c%20${loc.lng}&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;//would like to have a map the pans into the location would have to be a series of maps with at timeout and an incrementer for the zoom
           response.render('pages/found',{map: map, llama: res});
         });
@@ -101,12 +105,6 @@ function curLoc(request,response){
   let loc = request.body;
   console.log( loc , 'curloc request');
   getRandomPokemon()
-    .then(img=>{
-      let pokeImg = `https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:64/${img.icon}`;
-      img.icon = encodeURI(pokeImg);
-      console.log(img.icon);
-      return img;
-    })
     .then(res=>{
       console.log(res, 'hello body');
       let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=13&size=600x300&markers=icon:${res.icon}%7Csize:large%7Ccolor:red%7C${loc.clat}%2c%20${loc.clng}&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;//would like to have a map the pans into the location would have to be a series of maps with at timeout and an incrementer for the zoom
@@ -145,8 +143,9 @@ function getPokemon(id) {
 //Poke object constructor
 function PokeFound(data){
   this.name = data.name;
-  this.icon = data.sprites.front_default; //will use for map icon.
+  this.icon = encodeURI(`https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:64/${data.sprites.front_default}`); //will use for map icon.
   this.type = data.types[0].type.name;
+  this.img =data.sprites.front_default;
 }
 
 //error handle

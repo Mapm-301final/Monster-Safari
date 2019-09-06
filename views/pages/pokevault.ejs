@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head') %>
+    </head>
+    <body>
+        <header>
+            <%- include('../partials/header') %>
+        </header>
+        <main id="main">
+                <% poketrap.forEach(item => { %>
+                    <section id="pokeDisplay">
+                        <p>Name: <%= .name %></p>
+                        <p></p>
+                        <p></p>
+                    </section>
+                    <section id="details">
+                        <p><img src="<%= item.image_url %>" alt="book image" width="30%"></p>
+                        <p>Book Title: <%= item.title %></p>
+                        <p>Book Author: <%= item.author %></p>
+                        <p>Book ISBN: <%= item.isbn %></p>
+                        <p>Book Description: <%= item.description %></p>
+                        <p id="total"<%= item.bookshelf %></p>
+                        <br>
+                    </section>
+        </main>
+        <footer>
+            <%- include('../partials/footer') %>
+        </footer>
+        
+    </body>
+</html>
