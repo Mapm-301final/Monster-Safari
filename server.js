@@ -53,28 +53,22 @@ app.post('/caught', pokeTrap);
 //===============================================================================================//
 //**************************************     Functions     ************************************//
 
+
+// function showDB(){}
+
+
+
+
 function pokeTrap(request,response){
   console.log(request, 'send to DB');
   const SQL= `INSERT INTO poke (poke_name, image_url, type) VALUES ($1,$2,$3)`;
   const values= [request.body.data[0],request.body.data[2],request.body.data[1]];
   return client.query(SQL,values)
     .then(res=>{
-      response.redirect('/');
+      response.redirect('/pokevault');
     })
     .catch('oops');
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 //Gets location based on search query
 function searchLatLong(request,response){
@@ -113,7 +107,7 @@ function curLoc(request,response){
       console.log(res, 'hello body');
       let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=13&size=600x300&markers=icon:${res.icon}%7Csize:large%7Ccolor:red%7C${loc.clat}%2c%20${loc.clng}&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;//would like to have a map the pans into the location would have to be a series of maps with at timeout and an incrementer for the zoom
       console.log(map);
-      response.render('pages/found',{ map: map});
+      response.render('pages/found',{map: map, llama: res});
     });
 }
 // POKEMON API CALLS
@@ -150,55 +144,6 @@ function PokeFound(data){
   this.icon = data.sprites.front_default; //will use for map icon.
   this.type = data.types[0].type.name;
 }
-
-
-// // function renderPokemon(getPokemon){
-// //   if (weather === sunny) {
-// //     // render random from  fire group
-// //   }
-// //   if (weather === cloudy){
-// //     // render random of normal group
-//   }
-// }
-
-// function getPokemon(name) {
-//     fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`)
-//     .then(function (response) { return response.json(); })
-//     .then(function (json) {
-//         var pokemon = json;
-//         renderPokemon(pokemon);
-//     });
-// }
-
-
-// function displayPokemon(pokemon){
-//     // loop through and display the pokemon!
-
-// }
-
-//   // render pokemon image
-//   // var image = document.createElement('img');
-//   // image.src = pokemon.sprites.front_default;
-//   // pkHeader.appendChild(image);
-
-//   // // render pokemon type
-//   // for (var i = 0; i < pokemon.types.length; i++) {
-//   //     var ability = document.createElement("li")
-//   //     ability.innerHTML = pokemon.types[i].type.name;
-//   //     pkAbilities.appendChild(ability);
-//   // }
-
-//   // render pokemon moves
-//   for (var i = 0; i < pokemon.pokemon.length; i++) {
-//     var move = document.createElement('li');
-//     // var spriteFront = $("<img src=" + ['sprites']['front_default'] + ">");
-//     // // console.log( pokemon.sprites.front_default);
-//     // $("#pokemon_image").append(spriteFront);
-//     move.innerHTML = pokemon.pokemon[i].pokemon.name;
-//     pkMoves.appendChild(move);
-//   }
-//   // let ranMove = pokemon.moves[Math.floor(Math.random() * pokemon.moves.length)];
-// }
 
 //error handle
 app.get('*', (request, response)=>{
