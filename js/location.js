@@ -4,7 +4,8 @@
 //lnked to location .js gets current location
 window.onload = function() {
   //Show position takes the current lat long and posts it to the server to be used in weather call, it also appends the lat and long to the DOM.
-  navigator.geolocation.getCurrentPosition(showPosition);
+  navigator.geolocation.getCurrentPosition(showPosition)
+  $('#curButton').prop('disabled', false);
 };
 
 
