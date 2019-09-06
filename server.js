@@ -22,10 +22,10 @@ require('dotenv').config();
 //=================Postgres Database===============
 // DATABASE_URL=postgres://localhost:5432/monster
 
-// const pg = require('pg');
-// const client = new pg.Client(process.env.DATABASE_URL);
-// client.connect();
-// client.on('error', err=> console.error(err));
+const pg = require('pg');
+const client = new pg.Client(process.env.DATABASE_URL);
+client.connect();
+client.on('error', err=> console.error(err));
 
 //setting up ejs
 app.set('view engine', 'ejs');
@@ -43,17 +43,37 @@ app.get('/', (request, response)=>{
   let map = 'http://www.pngmart.com/files/2/Pikachu-PNG-Free-Download.png';
   response.render('pages/index',{ map: map});
 });
-
 //Gets current location
 app.post('/found' , curLoc);
 //calls Geocode
 app.post('/getLocation',searchLatLong);
-
-app.post
+app.post('/caught', pokeTrap);
 
 
 //===============================================================================================//
 //**************************************     Functions     ************************************//
+
+function pokeTrap(request,response){
+  console.log(request, 'send to DB');
+  const SQL= `INSERT INTO poke (poke_name, image_url, type) VALUES ($1,$2,$3)`;
+  const values= [request.body.data[0],request.body.data[2],request.body.data[1]];
+  return client.query(SQL,values)
+    .then(res=>{
+      response.redirect('/');
+    })
+    .catch('oops');
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 //Gets location based on search query
@@ -63,21 +83,17 @@ function searchLatLong(request,response){
   // //using our superagent library to get the proper data format
   return superagent.get(url)
     .then(res =>{
-      console.log(res.body);
+      // console.log(res.body);
       let loc = res.body.results[0].geometry.location;
       getRandomPokemon()
         .then(img=>{
-          console.log(img, 'hello img');
           let pokeImg = `https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:64/${img.icon}`;
-          let encodedImage = encodeURI(pokeImg);
-          return encodedImage;
+          img.icon = encodeURI(pokeImg);
+          return img;
         })
         .then(res=>{
-          console.log(res, 'hello body');
-          console.log(loc, 'location');
-          let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.lat}%2c%20${loc.lng}&zoom=13&size=600x300&markers=icon:${res}%7Csize:large%7Ccolor:red%7C${loc.lat}%2c%20${loc.lng}&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;//would like to have a map the pans into the location would have to be a series of maps with at timeout and an incrementer for the zoom
-          console.log(map);
-          response.render('pages/index',{ map: map});
+          let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.lat}%2c%20${loc.lng}&zoom=13&size=600x300&markers=icon:${res.icon}%7Csize:large%7Ccolor:red%7C${loc.lat}%2c%20${loc.lng}&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;//would like to have a map the pans into the location would have to be a series of maps with at timeout and an incrementer for the zoom
+          response.render('pages/found',{map: map, llama: res});
         });
     });
 }
@@ -89,12 +105,13 @@ function curLoc(request,response){
   getRandomPokemon()
     .then(img=>{
       let pokeImg = `https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:64/${img.icon}`;
-      let encodedImage = encodeURI(pokeImg);
-      return encodedImage;
+      img.icon = encodeURI(pokeImg);
+      console.log(img.icon);
+      return img;
     })
     .then(res=>{
       console.log(res, 'hello body');
-      let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=13&size=600x300&markers=icon:${res}%7Csize:large%7Ccolor:red%7C${loc.clat}%2c%20${loc.clng}&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;//would like to have a map the pans into the location would have to be a series of maps with at timeout and an incrementer for the zoom
+      let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.clat}%2c%20${loc.clng}&zoom=13&size=600x300&markers=icon:${res.icon}%7Csize:large%7Ccolor:red%7C${loc.clat}%2c%20${loc.clng}&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;//would like to have a map the pans into the location would have to be a series of maps with at timeout and an incrementer for the zoom
       console.log(map);
       response.render('pages/found',{ map: map});
     });
