@@ -40,7 +40,7 @@ app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 
 //initial index page
 app.get('/', (request, response)=>{
-  let map = 'http://www.pngmart.com/files/2/Pikachu-PNG-Free-Download.png';
+  let map = '';
   response.render('pages/index',{ map: map});
 });
 //Gets current location
