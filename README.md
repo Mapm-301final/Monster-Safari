@@ -29,6 +29,8 @@ https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,N
 &key=YOUR_API_KEY
 
 https://maps.googleapis.com/maps/api/staticmap?parameters
+File Stack API
+https://cdn.filestackcontent.com/YOUR APIKEY/TASKS/URL
 
 Poke API
 https://pokeapi.co/api/v2/pokemon/ditto/
