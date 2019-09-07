@@ -62,3 +62,21 @@ body {
   100% {margin-top:-270px;}
 }
 
+/* ================Mobile responive break point =================================*/
+@media only screen and (max-width: 768px) {
+
+
+  #map {
+    margin: auto;
+    width: 75%;
+  }
+.textInput, body {
+margin: auto;
+}
+#main {
+  background-color: rgba(233, 214, 107, 0.637);
+  border-radius: 5%;
+  color: black;
+
+}
+}
