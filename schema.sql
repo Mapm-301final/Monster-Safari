@@ -11,7 +11,7 @@ id SERIAL PRIMARY KEY,
 name VARCHAR(20), 
 type VARCHAR(255),
 icon VARCHAR(255),
-img VARCHAR(550), 
+img VARCHAR(255), 
 location VARCHAR(255),
 date_encounterd VARCHAR(255)
 );

@@ -63,7 +63,7 @@ app.post('/caught', trap);
 //**************************************     Functions     ************************************//
 
 // function to show all caught pokemon
-function pokevault(response){
+function pokevault(request,response){
   console.log('Starting Vault Display');
   const SQL= 'SELECT * FROM poke';
   return client.query(SQL)
@@ -73,7 +73,8 @@ function pokevault(response){
         response.render('pages/pokevault',{pokeVault: res.rows});
       }
     });
-}
+  }
+
 
 // FUnction to store a poke in the database
 function trap(request,response){
@@ -98,7 +99,7 @@ function searchLatLong(request,response){
       let loc = res.body.results[0].geometry.location;
       getRandomPokemon()
         .then(res=>{
-          console.log(res, 'hello body');
+          // console.log(res, 'hello body');
           let map =`https://maps.googleapis.com/maps/api/staticmap?center=${loc.lat}%2c%20${loc.lng}&zoom=13&size=600x300&markers=icon:${res.icon}%7Csize:large%7Ccolor:red%7C${loc.lat}%2c%20${loc.lng}&maptype=roadmap&key=${process.env.GEOCODE_API_KEY}`;//would like to have a map the pans into the location would have to be a series of maps with at timeout and an incrementer for the zoom
           response.render('pages/found',{map: map, llama: res});
         });
@@ -138,7 +139,8 @@ function getPokemon(id) {
         .then(result =>{
           let pokeInfo = result.body;
           console.log(pokeInfo.sprites.front_default);
-          (pokeInfo.sprites.front_default === null? pokeInfo.sprites.front_default= `https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:85/https://www.clipartmax.com/middle/m2i8N4N4K9K9d3m2_pokeball-pokemon-game-ball-png-image-pokeball-fondo-transparente/`: null);
+          ((pokeInfo.sprites.front_default === null)? pokeInfo.sprites.front_default= './public/siteImgs/placeholder.png' : null);
+          console.log(pokeInfo.sprites.front_default,'Sprites . Default');
           return new PokeFound(pokeInfo);
         });
     })
@@ -149,9 +151,10 @@ function getPokemon(id) {
 //Poke object constructor
 function PokeFound(data){
   this.name = data.name;
-  this.icon = encodeURI(`https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:64/${data.sprites.front_default}`); //will use for map icon.
+  this.icon = ((data.sprites.front_default === './public/siteImgs/placeholder.png')? encodeURI('./public/siteImgs/placeholder64.png') : encodeURI(`https://cdn.filestackcontent.com/${process.env.FILE_STACK_API}/resize=height:64/${data.sprites.front_default}`));
   this.type = data.types[0].type.name;
   this.img =data.sprites.front_default;
+  console.log(this.icon,'Constructor');
 }
 
 //error handle
