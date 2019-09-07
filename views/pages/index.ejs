@@ -2,17 +2,40 @@
 <html lang="en">
 <head>
     <%- include('../partials/head') %>
+    
 </head>
 <body>
     <header>
-        <%- include('../partials/header') %>
+            <%- include('../partials/header') %>
+           
+        
     </header>
+    
     <main id="main">
+
+            
+            <div data-animation='first'>
+                   
+                    <div></div>
+                    
+                    <div></div>
+                    
+            </div>
+            <img id="pot" src = "/imgs/running1.gif">
+
         <img id="map" src="<%= map %>"/>
+
         <%- include('../partials/main') %>
+        
+            
+          
     </main>
     <footer>
+
+            
+
         <%- include('../partials/footer') %>
+
     </footer>
 </body>
 </html>
