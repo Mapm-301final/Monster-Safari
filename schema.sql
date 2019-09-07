@@ -10,8 +10,8 @@ CREATE TABLE IF NOT EXISTS poke (
 id SERIAL PRIMARY KEY,
 name VARCHAR(20), 
 type VARCHAR(255),
-icon VARCHAR(255),
-img VARCHAR(255), 
+icon VARCHAR(355),
+img VARCHAR(500), 
 location VARCHAR(255),
 date_encounterd VARCHAR(255)
 );
