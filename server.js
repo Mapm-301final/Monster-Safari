@@ -40,7 +40,7 @@ app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 
 //initial index page
 app.get('/', (request, response)=>{
-  let map = '/imgs/resiez.png';
+  let map = '';
   response.render('pages/index',{ map: map});
 });
 

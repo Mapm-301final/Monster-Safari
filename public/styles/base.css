@@ -1,3 +1,8 @@
+*{
+    max-width: 100%;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+}
 
 
 
@@ -9,10 +14,12 @@ body {
     color: whitesmoke;
     text-align: center;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+
+
 }
 
 .findMonster{
-    margin-right: 700px;
+    margin-left: 300px;
 }
 
 #map {
@@ -23,29 +30,4 @@ body {
 .textInput{
     margin-left: 450px;
     
-}
-
-#pot{
-    z-index: -1;
-}
-/* fade in out */
-#pot {
-    -webkit-animation: fadeinout 5s linear 1 forwards;
-    animation: fadeinout 5s linear 1 forwards;
-}
-
-@-webkit-keyframes fadeinout {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
-}
-@keyframes fadeinout {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-#logo{
-    
-    z-index:1;
 }
