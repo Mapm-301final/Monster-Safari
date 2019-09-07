@@ -40,7 +40,7 @@ app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 
 //initial index page
 app.get('/', (request, response)=>{
-  let map = '';
+  let map = '/imgs/resiez.png';
   response.render('pages/index',{ map: map});
 });
 //Gets current location
