@@ -65,6 +65,7 @@ body {
 /* ================Mobile responive break point =================================*/
 @media only screen and (max-width: 768px) {
 
+
   #map {
     margin: auto;
     width: 75%;

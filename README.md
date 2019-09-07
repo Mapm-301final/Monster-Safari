@@ -6,7 +6,7 @@ https://github.com/Mapm-301final/Monster-Safari/wiki
 ## Readme Requirements
 ###The name of the project
 ###Names of the team members
-Morgan T. Shaw, PT, Ahren Swett, Mae-mae Zhou
+Morgan T. Shaw, PT, Ahren Swett
 ###A description of the project
 ###The overall problem domain and how the project solves those problems
 ###Semantic versioning, beginning with version 1.0.0 and incremented as changes are made
