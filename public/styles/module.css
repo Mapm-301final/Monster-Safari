@@ -81,6 +81,8 @@ a{
     color: black
 }
 
+/* Curtain animation */
+
 :root {
 	--transform-value: -100%;
 	--animation-duration: 2s;
