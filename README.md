@@ -1,8 +1,11 @@
 # Poke Safari
 Final 301 Project. Find Pokemon around the world based on Location.
+## Heroku Deployment
 Check it out: https://cpoke-safari.herokuapp.com/
 ## WIKI
 https://github.com/Mapm-301final/Monster-Safari/wiki
+## Trello
+https://trello.com/b/6tKsrbn6/pokemon-301-project
 
 ## Readme Requirements
 ### The name of the project
