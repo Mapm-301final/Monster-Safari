@@ -73,7 +73,7 @@ function pokevault(request,response){
         response.render('pages/pokevault',{pokeVault: res.rows});
       }
     });
-  }
+}
 
 
 // FUnction to store a poke in the database
