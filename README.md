@@ -18,7 +18,7 @@ Search anywhere in the world to find and collect pokemon. Add them to your backp
 When searching for maps of places they are not visually appealing and there is nothing to collect. Our app allows plain maps to become visually stunning and you are able to collect pokemon from every place that you search. 
 ### Semantic versioning, beginning with version 1.0.0 and incremented as changes are made
 ### A list of any libraries, frameworks, or packages that your application requires in order to properly function
-Express, Postgres, jQuery, EJS, Pokemon API, Google Maps API
+Express, Postgres, jQuery, EJS, Pokemon API, Google Maps API, File Stack API
 ### Instructions that the user may need to follow in order to get your application up and running on their own computer
 To get this app running you will need to clone the code and run npm init. Ensure all the required packages are added to your package-lock file. You will need API keys from Google Maps and Poke API.
 ### Clearly defined API endpoints with sample responses
